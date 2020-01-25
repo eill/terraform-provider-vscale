@@ -1,4 +1,21 @@
 language: go
+dist: xenial
 
 go:
-  - master
+  - 1.13.x
+
+notifications:
+  email: false
+
+script:
+  - go build -v
+
+before_deploy:
+  - tar -zcf terraform-provider-vscale.tar.gz terraform-provider-vscale
+
+deploy:
+  provider: releases
+  api_key:
+    secure: "pIn3ZfOWc3QQ89hH2dTaQfaqB464+u9dqNSiaH9EKX8Td0uSaKWsMIZhWoypfs8GgsQWbko7yN5oPbQK9dU9b3RirQMsfLv9kw2LG6C1dVrjtWIBxnGu2Z/+9bpLTvbfK5P1jn2p+DHCFDasPhq0XbKRZYo9rY6IEzeLgTCKE/XuFP2muzu9N2+tFQT62X7JxKwQmbJfBo1yYPE2o06c9+vfScNpaF7Vz5wgBS4VJepfNy7l7oXv5e4pKRvYzeLMsDnmrz8cQ4YiP60foHwjN7V/ySuj8dLL5x07OlodCDkc2pCy2mGp9FUFunRJW4ZRqV4fWeu/Sk+jTvAn3SZW6EfJUpEBr5TtzDIZ8Bu3pjN4mUJ+8LN3ueIhsQApWSdTUkJkHodR3bjqPecO0tzRDEolgE84C+yegnhIhLmStmsmExl9bF/smolZ3N17rHnptNEv1hdbf28rg03otW4wQ6l/+51kqI4HgPMP3Ytyaq+qHrjc0Upo03Hi6msLDqsW7PTV+2Vyhdx7RIX/0xdaWnf2TMwX4zeWCzxtxjrYCUoSXgPEwvVv8jY1u3eC4S2vg/KY1suAGM42p8aXPdS/agOdc1hwZpdDKvDWlA/0r3tz8Z5ThJJfNr9ZgoWK1GhtwHI+nVe+11UDaSWg4yPhyn/D9y6UZADqyUVeZkK/EeU="
+  skip_cleanup: true
+  file: terraform-provider-vscale.tar.gz
